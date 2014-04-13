@@ -1,0 +1,20 @@
+Akrp\JobeetBundle\Entity\LineOBizAffiliate:
+  type: entity
+  table: lob_affiliate
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  manyToOne:
+    lob:
+      targetEntity: LineOBiz
+      inversedBy: lob_affiliates
+      joinColumn:
+        name: lob_id
+        referencedColumnName: id
+    affiliate:
+      targetEntity: Affiliate
+      inversedBy: lob_affiliates
+      joinColumn:
+        name: affiliate_id
+        referencedColumnName: id

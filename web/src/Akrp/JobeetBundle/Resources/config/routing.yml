@@ -1,0 +1,21 @@
+login:
+    pattern:   /login
+    defaults:  { _controller: AkrpJobeetBundle:Default:login }
+    
+login_check:
+    pattern:   /login_check
+    
+logout:
+    pattern:   /logout
+
+AkrpJobeetBundle_lob:
+    pattern: /lob/{slug}/{page}
+    defaults: { _controller: AkrpJobeetBundle:LineOBiz:show, page: 1 }
+    
+AkrpJobeetBundle_akrp_job:
+        resource: "@AkrpJobeetBundle/Resources/config/routing/job.yml"
+        prefix:   /job
+        
+AkrpJobeetBundle_homepage:
+    pattern:  /
+    defaults: { _controller: AkrpJobeetBundle:Job:index }

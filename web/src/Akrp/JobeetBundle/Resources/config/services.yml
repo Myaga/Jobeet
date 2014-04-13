@@ -1,0 +1,16 @@
+parameters:
+#    akrp_jobeet.example.class: Akrp\JobeetBundle\Example
+
+
+services:
+    akrp.jobeet.admin.lob:
+        class: Akrp\JobeetBundle\Admin\LineOBizAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: jobeet, label: Skillz }
+        arguments: [null, Akrp\JobeetBundle\Entity\LineOBiz, AkrpJobeetBundle:LineOBizAdmin]
+ 
+    akrp.jobeet.admin.job:
+        class: Akrp\JobeetBundle\Admin\JobAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: jobeet, label: Jobs }
+        arguments: [null, Akrp\JobeetBundle\Entity\Job, AkrpJobeetBundle:JobAdmin]

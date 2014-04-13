@@ -1,0 +1,46 @@
+akrp_job:
+    pattern:  /
+    defaults: { _controller: "AkrpJobeetBundle:Job:index" }
+
+akrp_job_show:
+    pattern:  /{company}/{location}/{id}/{position}
+    defaults: { _controller: "AkrpJobeetBundle:Job:show" }
+    requirements:
+      id: \d+
+akrp_job_preview:
+    pattern:  /{company}/{location}/{token}/{position}
+    defaults: { _controller: "AkrpJobeetBundle:Job:preview" }
+    requirements:
+        token:  \w+
+
+akrp_job_new:
+    pattern:  /new
+    defaults: { _controller: "AkrpJobeetBundle:Job:new" }
+
+akrp_job_create:
+    pattern:  /create
+    defaults: { _controller: "AkrpJobeetBundle:Job:create" }
+    requirements: { _method: post }
+
+akrp_job_edit:
+    pattern:  /{token}/edit
+    defaults: { _controller: "AkrpJobeetBundle:Job:edit" }
+
+akrp_job_update:
+    pattern:  /{token}/update
+    defaults: { _controller: "AkrpJobeetBundle:Job:update" }
+    requirements: { _method: post }
+
+akrp_job_delete:
+    pattern:  /{token}/delete
+    defaults: { _controller: "AkrpJobeetBundle:Job:delete" }
+    requirements: { _method: post }
+
+akrp_job_publish:
+    pattern:  /{token}/publish
+    defaults: { _controller: "AkrpJobeetBundle:Job:publish" }
+    requirements: { _method: post }
+akrp_job_extend:
+    pattern:  /{token}/extend
+    defaults: { _controller: "AkrpJobeetBundle:Job:extend" }
+    requirements: { _method: post }

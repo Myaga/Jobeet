@@ -1,0 +1,4 @@
+akrp_jobeet:
+    resource: "@AkrpJobeetBundle/Resources/config/routing.yml"
+    prefix:   /
+

@@ -1,0 +1,30 @@
+{% extends 'AkrpJobeetBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/akrpjobeet/css/jobs.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+<div id="jobs">
+    {% for lob in lobs %}
+    <div class="lob_{{ lob.slug }}">
+        <div class="lob">
+            <div class="feed">
+                <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, '_format': 'atom' }) }}">Feed</a>
+            </div>
+            <h1><a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug }) }}">{{ lob.name }}</a></h1>
+        </div>
+
+        {% include 'AkrpJobeetBundle:Job:list.html.twig' with {'jobs': lob.activejobs} %}
+
+        {% if lob.morejobs %}
+        <div class="more_jobs">
+            and <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug }) }}">{{ lob.morejobs }}</a>
+            more...
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

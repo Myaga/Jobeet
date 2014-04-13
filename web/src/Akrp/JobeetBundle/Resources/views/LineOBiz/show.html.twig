@@ -1,0 +1,57 @@
+{% extends 'AkrpJobeetBundle::layout.html.twig' %}
+
+{% block title %}
+Jobs in the {{ lob.name }} lob
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/akrpjobeet/css/jobs.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+<div class="lob">
+    <div class="feed">
+        <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, '_format': 'atom' }) }}">Feed</a>
+    </div>
+    <h1>{{ lob.name }}</h1>
+</div>
+
+{% include 'AkrpJobeetBundle:Job:list.html.twig' with {'jobs': lob.activejobs} %}
+
+{% if last_page > 1 %}
+<div class="pagination">
+    <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, 'page': 1 }) }}">
+        <img src="{{ asset('bundles/akrpjobeet/images/first.png') }}" alt="First page" title="First page" />
+    </a>
+
+    <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, 'page': previous_page }) }}">
+        <img src="{{ asset('bundles/akrpjobeet/images/previous.png') }}" alt="Previous page" title="Previous page" />
+    </a>
+
+    {% for page in 1..last_page %}
+    {% if page == current_page %}
+    {{ page }}
+    {% else %}
+    <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, 'page': page }) }}">{{ page }}</a>
+    {% endif %}
+    {% endfor %}
+
+    <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, 'page': next_page }) }}">
+        <img src="{{ asset('bundles/akrpjobeet/images/next.png') }}" alt="Next page" title="Next page" />
+    </a>
+
+    <a href="{{ path('AkrpJobeetBundle_lob', { 'slug': lob.slug, 'page': last_page }) }}">
+        <img src="{{ asset('bundles/akrpjobeet/images/last.png') }}" alt="Last page" title="Last page" />
+    </a>
+</div>
+{% endif %}
+
+<div class="pagination_desc">
+    <strong>{{ total_jobs }}</strong> jobs in this lob
+
+    {% if last_page > 1 %}
+    - page <strong>{{ current_page }}/{{ last_page }}</strong>
+    {% endif %}
+</div>
+{% endblock %}

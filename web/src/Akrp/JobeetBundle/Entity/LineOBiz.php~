@@ -1,0 +1,219 @@
+<?php
+
+namespace Akrp\JobeetBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Akrp\JobeetBundle\Utils\Jobeet;
+
+/**
+ * Akrp\JobeetBundle\Entity\LineOBiz
+ */
+class LineOBiz
+{
+    /**
+     * @var integer $id
+     */
+    private $id;
+
+    /**
+     * @var string $name
+     */
+    private $name;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $jobs;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $lob_affiliates;
+
+    private $active_jobs;
+
+    private $more_jobs;
+
+    /**
+     * @var string $slug
+     */
+    private $slug;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->jobs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lob_affiliates = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return LineOBiz
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add jobs
+     *
+     * @param Akrp\JobeetBundle\Entity\Job $jobs
+     * @return LineOBiz
+     */
+    public function addJob(\Akrp\JobeetBundle\Entity\Job $jobs)
+    {
+        $this->jobs[] = $jobs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove jobs
+     *
+     * @param Akrp\JobeetBundle\Entity\Job $jobs
+     */
+    public function removeJob(\Akrp\JobeetBundle\Entity\Job $jobs)
+    {
+        $this->jobs->removeElement($jobs);
+    }
+
+    /**
+     * Get jobs
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getJobs()
+    {
+        return $this->jobs;
+    }
+
+    /**
+     * Add lob_affiliates
+     *
+     * @param Akrp\JobeetBundle\Entity\LineOBizAffiliate $lobAffiliates
+     * @return LineOBiz
+     */
+    public function addLineOBizAffiliate(\Akrp\JobeetBundle\Entity\LineOBizAffiliate $lobAffiliates)
+    {
+        $this->lob_affiliates[] = $lobAffiliates;
+    
+        return $this;
+    }
+
+    /**
+     * Remove lob_affiliates
+     *
+     * @param Akrp\JobeetBundle\Entity\LineOBizAffiliate $lobAffiliates
+     */
+    public function removeLineOBizAffiliate(\Akrp\JobeetBundle\Entity\LineOBizAffiliate $lobAffiliates)
+    {
+        $this->lob_affiliates->removeElement($lobAffiliates);
+    }
+
+    /**
+     * Get lob_affiliates
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLineOBizAffiliates()
+    {
+        return $this->lob_affiliates;
+    }
+    /**
+     * to string Object
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Set active jobs
+     *
+     * @param $jobs
+     */
+    public function setActiveJobs($jobs)
+    {
+        $this->active_jobs = $jobs;
+    }
+    /**
+     * get active jobs
+     */
+    public function getActiveJobs()
+    {
+        return $this->active_jobs;
+    }
+    /**
+     * Slug name
+     *
+     * @return mixed|string
+     */
+    public function getSlug()
+    {
+        return Jobeet::slugify($this->getName());
+    }
+    /**
+     * set more jobs
+     *
+     * @param $jobs
+     */
+    public function setMoreJobs($jobs)
+    {
+        $this->more_jobs = $jobs >=  0 ? $jobs : 0;
+    }
+    /**
+     * get more jobs
+     *
+     * @return mixed
+     */
+    public function getMoreJobs()
+    {
+        return $this->more_jobs;
+    }
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return LineOBiz
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSlugValue()
+    {
+        $this->slug = Jobeet::slugify($this->getName());
+    }
+}

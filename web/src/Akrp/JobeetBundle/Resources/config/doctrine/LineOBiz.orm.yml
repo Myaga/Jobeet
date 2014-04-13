@@ -1,0 +1,27 @@
+Akrp\JobeetBundle\Entity\LineOBiz:
+  type: entity
+  repositoryClass: Akrp\JobeetBundle\Repository\LineOBizRepository
+  table: lob
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string
+      length: 255
+      unique: true
+    slug:
+      type: string
+      length: 255
+      unique: true
+  oneToMany:
+    jobs:
+      targetEntity: Job
+      mappedBy: lob
+    lob_affiliates:
+      targetEntity: LineOBizAffiliate
+      mappedBy: lob
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue ]
+    preUpdate: [ setSlugValue ]
